@@ -11,7 +11,8 @@ var mongoose = require("mongoose"),
     Campground = require("./models/campground.js"),
     Comment = require("./models/comment.js"),
     User = require("./models/user.js"),
-    seedDB = require("./seeds.js");
+    seedDB = require("./seeds.js"),
+    config = require("./config");
     
 var commentRoutes = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
@@ -20,7 +21,7 @@ var commentRoutes = require("./routes/comments"),
 
 
 
-mongoose.connect("mongodb://localhost:27017/yelp_camp",{useNewUrlParser: true});
+mongoose.connect(config.MONGODB_URI,{useNewUrlParser: true});
 app.set("view engine","ejs");
 app.use(methodOverride("_method"));
 app.use(flash()); // must be before passport configuration
@@ -102,7 +103,7 @@ app.get("*",function(req,res){
     
 });
 
-app.listen(process.env.PORT,process.env.IP,function(){
+app.listen(config.PORT,config.IP,function(){
     console.log("YelpCamp Server Has Started!")
     
 });
